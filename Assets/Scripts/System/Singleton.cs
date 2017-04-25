@@ -7,7 +7,7 @@
 /// 
 /// As a note, this is made as MonoBehaviour because we need Coroutines.
 /// </summary>
-namespace DOD {
+namespace Fudo {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
         private static T _instance;
 

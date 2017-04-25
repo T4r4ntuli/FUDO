@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DOD {
+namespace Fudo {
     public class EntityManager : Singleton<EntityManager> {
         protected EntityManager() { }
 

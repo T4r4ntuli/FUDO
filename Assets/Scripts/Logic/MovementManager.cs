@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DOD.Logic {
+namespace Fudo.Logic {
     public class MovementManager : MonoBehaviour /*Replace with static class*/ {
 
         ComponentManager componentManager;

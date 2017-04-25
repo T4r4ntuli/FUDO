@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DOD {
+namespace Fudo {
     public class ManagerAwaker : MonoBehaviour {
         
         public void Awake() {

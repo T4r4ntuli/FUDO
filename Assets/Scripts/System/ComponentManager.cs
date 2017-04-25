@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace DOD {
+namespace Fudo {
     public class ComponentManager : Singleton<ComponentManager> {
         protected ComponentManager() { }
 
@@ -49,7 +49,7 @@ namespace DOD {
 
     
 }
-namespace DOD.Components {
+namespace Fudo.Components {
     [System.Serializable]
     public class Movement {
         public Vector3 velocity;

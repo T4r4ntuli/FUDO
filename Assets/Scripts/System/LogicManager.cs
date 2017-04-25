@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DOD {
+namespace Fudo {
     public class LogicManager : Singleton<LogicManager> {
         protected LogicManager() { }
 

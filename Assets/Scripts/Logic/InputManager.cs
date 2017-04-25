@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DOD.Logic {
+namespace Fudo.Logic {
     public class InputManager : MonoBehaviour /*Replace with static class*/ {
 
         void Start() {
