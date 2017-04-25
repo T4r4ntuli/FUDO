@@ -17,25 +17,24 @@ namespace Fudo.Logic {
 
         void Update() {
             foreach (KeyValuePair<int, Components.Movement> movementComponent in movementComponents) {
-                
-                Vector3 movePosition = positions[movementComponent.Key] + movementComponent.Value.velocity * Time.deltaTime;
+                Vector3 newPos;
+                if (positions.TryGetValue(movementComponent.Key, out newPos)) {
+                    Vector3 movePosition = newPos + movementComponent.Value.velocity * Time.deltaTime;
+                    //IsGrounded check
 
-                //IsGrounded check
+                    if (false) { //collision check
+                        Vector3 newVel = movementComponent.Value.velocity;
+                        Vector3 moveAmount = movePosition - newPos;
 
-                Vector3 newPos = positions[movementComponent.Key];
+                        while (true) {
 
-                if (false) { //collision check
-                    Vector3 newVel = movementComponent.Value.velocity;
-                    Vector3 moveAmount = movePosition - newPos;
-
-                    while (true) {
-
+                        }
+                        movementComponent.Value.velocity = newVel;
+                    } else {
+                        newPos = movePosition;
                     }
-                    movementComponent.Value.velocity = newVel;
-                } else {
-                    newPos = movePosition;
+                    positions[movementComponent.Key] = newPos;
                 }
-                positions[movementComponent.Key] = newPos;
             }
         }
     }

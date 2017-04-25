@@ -8,6 +8,7 @@ namespace Fudo {
         ComponentManager componentManager;
 
         public Dictionary<int, Entity> entities;
+        int nextEntityID = 1;
 
         public List<Dictionary<int, int>> intDictionaries;        
         public List<Dictionary<int, float>> floatDictionaries;     
@@ -31,13 +32,20 @@ namespace Fudo {
         }
 
         public int GenerateEntityID() {
-            int id = Random.Range(0, 10000);
+            /*int id = Random.Range(0, 10000);
 
             if (entities.ContainsKey(id)) {
                 return GenerateEntityID();
             } else {
                 return id;
-            }
+            }*/
+            
+            do {
+                if (!entities.ContainsKey(nextEntityID)) {
+                    return nextEntityID;
+                }
+                nextEntityID++;
+            } while (true);
         }
 
         public void DeleteEntity(int id) {
@@ -61,6 +69,7 @@ namespace Fudo {
                 GameObject go;
                 if (componentManager.entityGameObjects.TryGetValue(id, out go)) {
                     Destroy(go);
+                    componentManager.entityGameObjects.Remove(id);
                     Debug.Log("Deleted gameObject succesfully");
                 }
                 Debug.Log("Deleted entity succesfully");
