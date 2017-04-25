@@ -25,6 +25,7 @@ namespace Fudo {
             go.name = "Player";
 
             entity.id = entityManager.GenerateEntityID();
+            entityManager.entities.Add(entity.id, entity);
 
             componentManager.entityGameObjects.Add(entity.id, go);
             componentManager.entityTransforms.Add(entity.id, go.transform);

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fudo {
@@ -8,7 +7,7 @@ namespace Fudo {
 
         ComponentManager componentManager;
 
-        public List<int> entityIDs;
+        public Dictionary<int, Entity> entities;
 
         public List<Dictionary<int, int>> intDictionaries;        
         public List<Dictionary<int, float>> floatDictionaries;     
@@ -18,7 +17,7 @@ namespace Fudo {
         public List<Dictionary<int, Components.Movement>> movementDictionaries;
 
         public override void Init() {
-            entityIDs = new List<int>();
+            entities = new Dictionary<int, Entity>();
 
             intDictionaries = new List<Dictionary<int, int>>();
             floatDictionaries = new List<Dictionary<int, float>>();
@@ -34,16 +33,15 @@ namespace Fudo {
         public int GenerateEntityID() {
             int id = Random.Range(0, 10000);
 
-            if (entityIDs.Contains(id)) {
+            if (entities.ContainsKey(id)) {
                 return GenerateEntityID();
             } else {
-                entityIDs.Add(id);
                 return id;
             }
         }
 
         public void DeleteEntity(int id) {
-            if(entityIDs.Remove(id)) {
+            if(entities.Remove(id)) {
                 foreach (Dictionary<int, int> dictionary in intDictionaries) {
                     dictionary.Remove(id);
                 }
