@@ -4,13 +4,12 @@ namespace Fudo {
     public class PlayerManager : Singleton<PlayerManager> {
         protected PlayerManager() { }
 
-
         ComponentManager componentManager;
         EntityManager entityManager;
         public GameObject playerPrefab;
 
         public override void Init() {
-            
+
         }
         public override void ReferenceManager() {
             componentManager = ComponentManager.Instance;

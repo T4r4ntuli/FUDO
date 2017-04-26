@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
 namespace Fudo {
-    public class ManagerAwaker : MonoBehaviour {
-        
-        public void Awake() {
+    public class ManagerAwaker : Singleton<ManagerAwaker> {
+        protected ManagerAwaker() { }
+
+        public override void Init() {
             //Awake all managers
 
             EntityManager.Instance.Init();
