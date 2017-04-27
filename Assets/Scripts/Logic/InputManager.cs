@@ -10,6 +10,9 @@ namespace Fudo.Logic {
                     playerManager.CreatePlayer();
                 //}
             }
+            if (Input.GetKeyDown(KeyCode.Alpha3)) {
+                EventManager.TriggerEvent(Enums.Event.Test);
+            }
             if (Input.GetKeyDown(KeyCode.W)) {
                 if (true) { //if entity is controllable do something
 
