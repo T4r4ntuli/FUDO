@@ -12,29 +12,45 @@ namespace Fudo.Drawer {
             if (ComponentManager.Instance == null) {
                 return;
             }
+            ComponentManager componentManager = ComponentManager.Instance;
+
             foreach (Enums.ComponentType componentType in System.Enum.GetValues(typeof(Enums.ComponentType))) { //This optimizable :)
-                var component = ComponentManager.Instance.ReturnComponent(componentType, e.id);
+                var component = componentManager.ReturnComponent(componentType, e.id);
                 
                 if (component != null) {
-                    EditorGUILayout.Separator();
-                    //EditorGUI.DrawRect()
-                    if (component.GetType() == typeof(Vector3)) {
-                        EditorGUILayout.Vector3Field(componentType.ToString(), (Vector3)component);
-                    } else if (component.GetType() == typeof(Quaternion)) {
-                        EditorGUILayout.Vector3Field(componentType.ToString(), ((Quaternion)component).eulerAngles);
-                    } else if (component.GetType() == typeof(float)) {
-                        EditorGUILayout.FloatField(componentType.ToString(), (float)component);
-                    } else if (component.GetType() == typeof(int)) {
-                        EditorGUILayout.IntField(componentType.ToString(), (int)component);
-                    } else if (component.GetType() == typeof(bool)) {
-                        EditorGUILayout.Toggle(componentType.ToString(), (bool)component);
-                    } else if (component.GetType() == typeof(Components.Movement)) {
+                    EditorGUILayout.Space();
+                    Rect rect = EditorGUILayout.BeginVertical();
+                    EditorGUI.DrawRect(rect, Color.gray);
+                    System.Type type = component.GetType(); 
+
+                    if (type == typeof(Vector3)) {
+                        Vector3 v = (Vector3)component;
+                        v = EditorGUILayout.Vector3Field(componentType.ToString(), v);
+                        componentManager.SetComponent(componentType, v, e.id);
+                    } else if (type == typeof(Quaternion)) {
+                        Quaternion qt = (Quaternion)component;
+                        qt = Quaternion.Euler(EditorGUILayout.Vector3Field(componentType.ToString(), qt.eulerAngles));
+                        componentManager.SetComponent(componentType, qt, e.id);
+                    } else if (type == typeof(float)) {
+                        float f = (float)component;
+                        f = EditorGUILayout.FloatField(componentType.ToString(), f);
+                        componentManager.SetComponent(componentType, f, e.id);
+                    } else if (type == typeof(int)) {
+                        int i = (int)component;
+                        i = EditorGUILayout.IntField(componentType.ToString(), i);
+                        componentManager.SetComponent(componentType, i, e.id);
+                    } else if (type == typeof(bool)) {
+                        bool b = (bool)component;
+                        b = EditorGUILayout.Toggle(componentType.ToString(), b);
+                        componentManager.SetComponent(componentType, b, e.id);
+                    } else if (type == typeof(Components.Movement)) {
                         EditorGUILayout.LabelField("Movement");
                         Components.Movement mv = (Components.Movement)component;
-                        EditorGUILayout.Vector3Field("Velocity", mv.velocity);
-                    } else if (component.GetType() == typeof(Components.Controllable)) {
+                        mv.velocity = EditorGUILayout.Vector3Field("Velocity", mv.velocity);
+                    } else if (type == typeof(Components.Controllable)) {
                         EditorGUILayout.LabelField("Controllable");
                     }
+                    EditorGUILayout.EndVertical();
                 }
             }
             //if (GUILayout.Button((showTools) ? "Hide Transform Tools" : "Show Transform Tools")) {

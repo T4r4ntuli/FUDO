@@ -15,8 +15,8 @@ namespace Fudo {
         public Dictionary<int, Vector3> positions, scales, directions;
         public Dictionary<int, Quaternion> rotations;
         public Dictionary<int, float> maxSpeeds;
-        public Dictionary<int, Components.Controllable> controllables;
         //User made component lists
+        public Dictionary<int, Components.Controllable> controllables;
         public Dictionary<int, Components.Movement> movementComponents, previousFrameMovementComponents;
 
         public override void Init() {
@@ -109,6 +109,34 @@ namespace Fudo {
 
             }
             return null;
+        }
+
+        public void SetComponent(Enums.ComponentType componentType, object component, int entityId) {
+            switch (componentType) {
+                case Enums.ComponentType.Position:
+                case Enums.ComponentType.Direction:
+                case Enums.ComponentType.Scale:
+                    {
+                        if (componentType == Enums.ComponentType.Position) {
+                            positions[entityId] = (Vector3)component;
+                        } else if (componentType == Enums.ComponentType.Direction) {
+                            directions[entityId] = (Vector3)component;
+                        } else if (componentType == Enums.ComponentType.Scale) {
+                            scales[entityId] = (Vector3)component;
+                        }
+                    }
+                    break;
+                case Enums.ComponentType.Rotation:
+                    {
+                        rotations[entityId] = (Quaternion)component;
+                    }
+                    break;
+                case Enums.ComponentType.MaxSpeed:
+                    {
+                        maxSpeeds[entityId] = (float)component;
+                    }
+                    break;
+            }
         }
     }
 }
