@@ -8,9 +8,12 @@ namespace Fudo {
         EntityManager entityManager;
         public GameObject playerPrefab;
 
-        public override void Init() {
+        Transform root;
 
+        public override void Init() {
+            root = GameObject.Find("Root").transform;
         }
+
         public override void ReferenceManager() {
             componentManager = ComponentManager.Instance;
             entityManager = EntityManager.Instance;
@@ -22,6 +25,7 @@ namespace Fudo {
             GameObject go = Instantiate(playerPrefab);
             Entity entity = go.GetComponent<Entity>();
             go.name = "Player";
+            go.transform.parent = root;
 
             entity.id = entityManager.GenerateEntityID();
             entityManager.entities.Add(entity.id, entity);

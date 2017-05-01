@@ -141,16 +141,3 @@ namespace Fudo {
     }
 }
 
-namespace Fudo.Enums {
-    public enum ComponentType {
-        Position,
-        Scale,
-        Direction,
-        Rotation,
-        MaxSpeed,
-        Controllable,
-        Movement,
-        PreviousFrameMovement,
-        Count
-    }
-}

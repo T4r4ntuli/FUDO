@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-namespace Fudo.Proc
+namespace Fudo.Processor
 {
-    public static class MovementProcessor
+    public static class Movement
     {
         private static UnityAction listener;
 

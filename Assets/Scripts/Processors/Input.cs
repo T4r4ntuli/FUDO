@@ -1,19 +1,16 @@
-﻿using UnityEngine;
-
-namespace Fudo.Proc {
-    public static class InputProcessor {
-
+﻿namespace Fudo.Processor {
+    public static class Input {
         public static void Update() {
-            if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha2)) {
                 PlayerManager playerManager = PlayerManager.Instance;
                 //for (int i = 0; i < 500; i++) {
                     playerManager.CreatePlayer();
                 //}
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha3)) {
                 EventManager.TriggerEvent(Enums.Event.Test);
             }
-            if (Input.GetKeyDown(KeyCode.W)) {
+            if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.W)) {
                 if (true) { //if entity is controllable do something
 
                 }

@@ -1,8 +1,10 @@
-﻿using UnityEngine;
-
-namespace Fudo {
+﻿namespace Fudo {
     public class ManagerAwaker : Singleton<ManagerAwaker> {
         protected ManagerAwaker() { }
+
+        private void Awake() {
+            Init();
+        }
 
         public override void Init() {
             //Awake all managers
@@ -14,7 +16,6 @@ namespace Fudo {
 
             EntityManager.Instance.ReferenceManager();
             ComponentManager.Instance.ReferenceManager();
-            Debug.Log("INITIALIZE");
             ProcessorManager.Instance.ReferenceManager();
             PlayerManager.Instance.ReferenceManager();
         }

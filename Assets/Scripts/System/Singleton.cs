@@ -60,6 +60,7 @@ namespace Fudo {
 
         void Awake() {
             DontDestroyOnLoad(gameObject);
+            //Init(); // CHECK IF THIS IS CORRECT
         }
 
         [System.NonSerialized]
