@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Fudo.Logic {
-    public class UnityMovementManager : MonoBehaviour /*Replace with static class*/ {
+    public class oldUnityMovementProcessorManager : MonoBehaviour /*Replace with static class*/ {
 
         ComponentManager componentManager;
         Dictionary<int, Transform> transforms;

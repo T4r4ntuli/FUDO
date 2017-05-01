@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Fudo.PRC;
 
-namespace Fudo.Logic {
+namespace Fudo.Proc {
     public class MovementManager : MonoBehaviour /*Replace with static class*/
     {
         ComponentManager componentManager;
@@ -11,11 +11,11 @@ namespace Fudo.Logic {
 
         void Start() {
             componentManager = ComponentManager.Instance;
-            StaticMovementProcessor.Start();
+            MovementProcessor.Start();
         }
 
         void Update() {
-            StaticMovementProcessor.Process(componentManager.positions, componentManager.movementComponents);
+            MovementProcessor.Update(componentManager.positions, componentManager.movementComponents);
             //foreach (KeyValuePair<int, Components.Movement> movementComponent in movementComponents) {
             //    Vector3 newPos;
             //    if (positions.TryGetValue(movementComponent.Key, out newPos)) {

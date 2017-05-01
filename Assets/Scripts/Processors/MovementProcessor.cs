@@ -1,12 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Fudo.Components;
+using UnityEngine.Events;
 
-namespace Fudo.PRC {
-    public class MovementProcessor : Processor<Vector3, Components.Movement>/*Replace with static class*/
+namespace Fudo.Proc
+{
+    public static class MovementProcessor
     {
-        public override void Process(GenericDictionary<Vector3> positions, GenericDictionary<Components.Movement> movements) {
+        private static UnityAction listener;
+
+        public static void Start() {
+
+            listener = OnEvent;
+            EventManager.StartListening(Fudo.Enums.Event.Test, listener);
+        }
+
+        public static void OnEvent() {
+            Debug.Log("YYYIEEEAHAAA");
+        }
+
+        public static void Update(GenericDictionary<Vector3> positions, GenericDictionary<Components.Movement> movements) {
             foreach (KeyValuePair<int, Components.Movement> movementComponent in movements) {
                 Vector3 newPos;
                 if (positions.TryGetValue(movementComponent.Key, out newPos)) {

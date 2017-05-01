@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Fudo
 {
-    public class ProcessorHandler : MonoBehaviour
+    public class oldMovementHandler : MonoBehaviour
     {
-        Fudo.PRC.MovementProcessor movement;
+        //Fudo.PRC.MovementProcessor movement;
         ComponentManager componentManager;
         GenericDictionary<Vector3> positions;
         GenericDictionary<Components.Movement> movementComponents;
@@ -20,12 +20,7 @@ namespace Fudo
 
         // Update is called once per frame
         void Update() {
-            movement.Process(positions, movementComponents);
-        }
-
-        void LateUpdate() {
-
+          //  movement.Process(positions, movementComponents);
         }
     }
-
 }

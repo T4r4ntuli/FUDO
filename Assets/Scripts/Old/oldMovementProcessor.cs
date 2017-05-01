@@ -1,22 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Fudo.Components;
 
-namespace Fudo.Logic {
-    public class AimProcessor : MonoBehaviour /*Replace with static class*/ {
-
-        ComponentManager componentManager;
-        Dictionary<int, Vector3> positions;
-        Dictionary<int, Components.Movement> movementComponents;
-
-        void Start() {
-            componentManager = ComponentManager.Instance;
-            positions = componentManager.positions;
-            movementComponents = componentManager.movementComponents;
-        }
-
-        void Update() {
-            foreach (KeyValuePair<int, Components.Movement> movementComponent in movementComponents) {
+namespace Fudo.PRC {
+    public class oldMovementProcessor/*Replace with static class*/
+    {
+        public void Process(GenericDictionary<Vector3> positions, GenericDictionary<Components.Movement> movements) {
+            foreach (KeyValuePair<int, Components.Movement> movementComponent in movements) {
                 Vector3 newPos;
                 if (positions.TryGetValue(movementComponent.Key, out newPos)) {
                     Vector3 movePosition = newPos + movementComponent.Value.velocity * Time.deltaTime;

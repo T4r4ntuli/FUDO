@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-namespace Fudo.Logic {
-    public class InputManager : MonoBehaviour /*Replace with static class*/ {
+namespace Fudo.Proc {
+    public static class InputProcessor {
 
-        void Update() {
+        public static void Update() {
             if (Input.GetKeyDown(KeyCode.Alpha2)) {
                 PlayerManager playerManager = PlayerManager.Instance;
                 //for (int i = 0; i < 500; i++) {

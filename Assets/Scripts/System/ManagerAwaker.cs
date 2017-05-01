@@ -9,12 +9,13 @@ namespace Fudo {
 
             EntityManager.Instance.Init();
             ComponentManager.Instance.Init();
-            LogicManager.Instance.Init();
+            ProcessorManager.Instance.Init();
             PlayerManager.Instance.Init();
 
             EntityManager.Instance.ReferenceManager();
             ComponentManager.Instance.ReferenceManager();
-            LogicManager.Instance.ReferenceManager();
+            Debug.Log("INITIALIZE");
+            ProcessorManager.Instance.ReferenceManager();
             PlayerManager.Instance.ReferenceManager();
         }
     }
