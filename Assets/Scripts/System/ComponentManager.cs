@@ -7,14 +7,16 @@ namespace Fudo {
 
         EntityManager entityManager;
 
-        //Unity component lists
+        //Unity Component lists
         public Dictionary<int, GameObject> entityGameObjects;
         public Dictionary<int, Transform> entityTransforms;
         public Dictionary<int, Rigidbody> rigidbodies;
         //Single type lists
+        public Dictionary<int, float> maxSpeeds;
+        public Dictionary<int, bool> isVisibles;
+        //Unity classes/structs
         public GenericDictionary<Vector3> positions, scales, directions;
         public Dictionary<int, Quaternion> rotations;
-        public Dictionary<int, float> maxSpeeds;
         //User made component lists
         public Dictionary<int, Components.Controllable> controllables;
         public GenericDictionary<Components.Movement> movementComponents, previousFrameMovementComponents;
@@ -110,7 +112,7 @@ namespace Fudo {
             }
             return null;
         }
-
+        //Replace this with correct type functions, it's slow to unbox and box values with this function
         public void SetComponent(Enums.ComponentType componentType, object component, int entityId) {
             switch (componentType) {
                 case Enums.ComponentType.Position:

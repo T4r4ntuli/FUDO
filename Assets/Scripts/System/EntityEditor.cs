@@ -14,7 +14,11 @@ namespace Fudo.Drawer {
             }
             ComponentManager componentManager = ComponentManager.Instance;
 
-            foreach (Enums.ComponentType componentType in System.Enum.GetValues(typeof(Enums.ComponentType))) { //This optimizable :)
+            foreach (Enums.ComponentType componentType in System.Enum.GetValues(typeof(Enums.ComponentType))) {
+
+                switch (componentType) {
+
+                }
                 var component = componentManager.ReturnComponent(componentType, e.id);
                 
                 if (component != null) {
