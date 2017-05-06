@@ -52,7 +52,7 @@ namespace Fudo.Drawer {
                         break;
                     case Enums.ComponentType.Controllable:
                         Components.Controllable controllable;
-                        if (componentManager.controllables.TryGetValue(e.id, out controllable)) {
+                        if (componentManager.controllableComponents.TryGetValue(e.id, out controllable)) {
                             EditorGUILayout.LabelField(componentType.ToString());
                         }
                         break;

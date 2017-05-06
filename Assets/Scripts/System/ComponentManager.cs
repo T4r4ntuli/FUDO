@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using System;
 
 namespace Fudo {
     public class ComponentManager : Singleton<ComponentManager>
         {
         protected ComponentManager() { }
+        EntityManager entityManager;
         //Unity Component lists
         public GenericDictionary<GameObject> entityGameObjects;
         public GenericDictionary<Transform> entityTransforms;
@@ -17,14 +17,14 @@ namespace Fudo {
         public GenericDictionary<Vector3> positions, scales, directions;
         public GenericDictionary<Quaternion> rotations;
         //User made component lists
-        public GenericDictionary<Components.Controllable> controllables;
+        public GenericDictionary<Components.Controllable> controllableComponents;
         public GenericDictionary<Components.Movement> movementComponents, previousFrameMovementComponents;
 
         public override void Init() {
             entityGameObjects = new GenericDictionary<GameObject>();
             entityTransforms = new GenericDictionary<Transform>();
             rigidbodies = new GenericDictionary<Rigidbody>();
-            controllables = new GenericDictionary<Components.Controllable>();
+            controllableComponents = new GenericDictionary<Components.Controllable>();
             positions = new GenericDictionary<Vector3>();
             scales = new GenericDictionary<Vector3>();
             directions = new GenericDictionary<Vector3>();
@@ -35,7 +35,64 @@ namespace Fudo {
         }
 
         public override void ReferenceManager() {
+            entityManager = EntityManager.Instance;
         }
+        #region Add component functions
+        public void AddComponent(Enums.ComponentType componentType, float component, int entityId) {
+            if (componentType == Enums.ComponentType.MaxSpeed) {
+                maxSpeeds.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, bool component, int entityId) {
+            if (componentType == Enums.ComponentType.IsVisible) {
+                isVisibles.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, Vector3 component, int entityId) {
+            if (componentType == Enums.ComponentType.Position) {
+                positions.Add(entityId, component);
+            } else if (componentType == Enums.ComponentType.Direction) {
+                directions.Add(entityId, component);
+            } else if (componentType == Enums.ComponentType.Scale) {
+                scales.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, Quaternion component, int entityId) {
+            if (componentType == Enums.ComponentType.Rotation) {
+                rotations.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, Components.Movement component, int entityId) {
+            if (componentType == Enums.ComponentType.Movement) {
+                movementComponents.Add(entityId, component);
+            } else if (componentType == Enums.ComponentType.PreviousFrameMovement) {
+                previousFrameMovementComponents.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, Components.Controllable component, int entityId) {
+            if (componentType == Enums.ComponentType.Controllable) {
+                controllableComponents.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        #endregion
         #region Search component functions
         public int ReturnIntComponent(Enums.ComponentType componentType, int entityId) {
             int integer;
@@ -120,7 +177,6 @@ namespace Fudo {
             return null;
         }
         #endregion
-
         #region Set component functions
 
         public void SetComponent(Enums.ComponentType componentType, float component, int entityId) {

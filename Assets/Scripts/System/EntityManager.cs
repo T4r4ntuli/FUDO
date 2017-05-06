@@ -35,7 +35,7 @@ namespace Fudo {
                         default:
                             throw new System.Exception("Component deletion not implemented");
                         case Enums.ComponentType.Controllable:
-                            componentManager.controllables.Remove(id);
+                            componentManager.controllableComponents.Remove(id);
                             break;
                         case Enums.ComponentType.Direction:
                             componentManager.directions.Remove(id);
