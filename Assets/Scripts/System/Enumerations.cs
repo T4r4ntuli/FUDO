@@ -9,6 +9,7 @@
         Direction,
         Rotation,
         MaxSpeed,
+        IsVisible,
         Controllable,
         Movement,
         PreviousFrameMovement,

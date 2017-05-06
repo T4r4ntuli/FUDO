@@ -14,55 +14,55 @@ namespace Fudo.Drawer {
             }
             ComponentManager componentManager = ComponentManager.Instance;
 
-            foreach (Enums.ComponentType componentType in System.Enum.GetValues(typeof(Enums.ComponentType))) {
-
+            foreach (Enums.ComponentType componentType in e.components) {
+                EditorGUILayout.Space();
+                Rect rect = EditorGUILayout.BeginVertical();
+                EditorGUI.DrawRect(rect, Color.gray);
                 switch (componentType) {
-
-                }
-                var component = componentManager.ReturnComponent(componentType, e.id);
-                
-                if (component != null) {
-                    EditorGUILayout.Space();
-                    Rect rect = EditorGUILayout.BeginVertical();
-                    EditorGUI.DrawRect(rect, Color.gray);
-                    System.Type type = component.GetType(); 
-
-                    if (type == typeof(Vector3)) {
-                        Vector3 v = (Vector3)component;
-                        v = EditorGUILayout.Vector3Field(componentType.ToString(), v);
-                        componentManager.SetComponent(componentType, v, e.id);
-                    } else if (type == typeof(Quaternion)) {
-                        Quaternion qt = (Quaternion)component;
-                        qt = Quaternion.Euler(EditorGUILayout.Vector3Field(componentType.ToString(), qt.eulerAngles));
-                        componentManager.SetComponent(componentType, qt, e.id);
-                    } else if (type == typeof(float)) {
-                        float f = (float)component;
+                    default:
+                        Debug.LogWarning("Component draw not implemented for: " + componentType);
+                        break;
+                    case Enums.ComponentType.MaxSpeed:
+                        float f = componentManager.ReturnFloatComponent(componentType, e.id);
                         f = EditorGUILayout.FloatField(componentType.ToString(), f);
                         componentManager.SetComponent(componentType, f, e.id);
-                    } else if (type == typeof(int)) {
-                        int i = (int)component;
-                        i = EditorGUILayout.IntField(componentType.ToString(), i);
-                        componentManager.SetComponent(componentType, i, e.id);
-                    } else if (type == typeof(bool)) {
-                        bool b = (bool)component;
+                        break;
+                    case Enums.ComponentType.IsVisible:
+                        bool b = componentManager.ReturnBooleanComponent(componentType, e.id);
                         b = EditorGUILayout.Toggle(componentType.ToString(), b);
                         componentManager.SetComponent(componentType, b, e.id);
-                    } else if (type == typeof(Components.Movement)) {
-                        EditorGUILayout.LabelField("Movement");
-                        Components.Movement mv = (Components.Movement)component;
+                        break;
+                    case Enums.ComponentType.Position:
+                    case Enums.ComponentType.Direction:
+                    case Enums.ComponentType.Scale:
+                        Vector3 v = componentManager.ReturnVector3Component(componentType, e.id);
+                        v = EditorGUILayout.Vector3Field(componentType.ToString(), v);
+                        componentManager.SetComponent(componentType, v, e.id);
+                        break;
+                    case Enums.ComponentType.Rotation:
+                        Quaternion qt = componentManager.ReturnQuaternionComponent(componentType, e.id);
+                        qt = Quaternion.Euler(EditorGUILayout.Vector3Field(componentType.ToString(), qt.eulerAngles));
+                        componentManager.SetComponent(componentType, qt, e.id);
+                        break;
+                    case Enums.ComponentType.Movement:
+                    case Enums.ComponentType.PreviousFrameMovement:
+                        EditorGUILayout.LabelField(componentType.ToString());
+                        Components.Movement mv = componentManager.ReturnMovementComponent(componentType, e.id);
                         mv.velocity = EditorGUILayout.Vector3Field("Velocity", mv.velocity);
-                    } else if (type == typeof(Components.Controllable)) {
-                        EditorGUILayout.LabelField("Controllable");
-                    }
-                    EditorGUILayout.EndVertical();
+                        break;
+                    case Enums.ComponentType.Controllable:
+                        Components.Controllable controllable;
+                        if (componentManager.controllables.TryGetValue(e.id, out controllable)) {
+                            EditorGUILayout.LabelField(componentType.ToString());
+                        }
+                        break;
                 }
+                EditorGUILayout.EndVertical();
             }
-            //if (GUILayout.Button((showTools) ? "Hide Transform Tools" : "Show Transform Tools")) {
-            //    showTools = !showTools;
-            //    EditorPrefs.SetBool("ShowTools", showTools);
-            //}
         }
+        //if (GUILayout.Button((showTools) ? "Hide Transform Tools" : "Show Transform Tools")) {
+        //    showTools = !showTools;
+        //    EditorPrefs.SetBool("ShowTools", showTools);
+        //}
     }
-
-
 }

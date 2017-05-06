@@ -34,13 +34,20 @@ namespace Fudo {
             componentManager.entityTransforms.Add(entity.id, go.transform);
             componentManager.rigidbodies.Add(entity.id, go.GetComponent<Rigidbody>());
             componentManager.positions.Add(entity.id, Vector3.zero);
+            entity.components.Add(Enums.ComponentType.Position);
             componentManager.movementComponents.Add(entity.id, new Components.Movement());
+            entity.components.Add(Enums.ComponentType.Movement);
             componentManager.rotations.Add(entity.id, new Quaternion());
+            entity.components.Add(Enums.ComponentType.Rotation);
             componentManager.directions.Add(entity.id, new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2)));
+            entity.components.Add(Enums.ComponentType.Direction);
             componentManager.maxSpeeds.Add(entity.id, Random.Range(1, 3));
+            entity.components.Add(Enums.ComponentType.MaxSpeed);
+
             int random = Random.Range(0, 4);
             if(random > 1) {
                 componentManager.controllables.Add(entity.id, new Components.Controllable());
+                entity.components.Add(Enums.ComponentType.Rotation);
             }
 
             //move to acceleration logic

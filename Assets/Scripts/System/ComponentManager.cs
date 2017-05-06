@@ -1,145 +1,161 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace Fudo {
-    public class ComponentManager : Singleton<ComponentManager> {
+    public class ComponentManager : Singleton<ComponentManager>
+        {
         protected ComponentManager() { }
-
-        EntityManager entityManager;
-
         //Unity Component lists
-        public Dictionary<int, GameObject> entityGameObjects;
-        public Dictionary<int, Transform> entityTransforms;
-        public Dictionary<int, Rigidbody> rigidbodies;
+        public GenericDictionary<GameObject> entityGameObjects;
+        public GenericDictionary<Transform> entityTransforms;
+        public GenericDictionary<Rigidbody> rigidbodies;
         //Single type lists
-        public Dictionary<int, float> maxSpeeds;
-        public Dictionary<int, bool> isVisibles;
+        public GenericDictionary<float> maxSpeeds;
+        public GenericDictionary<bool> isVisibles;
         //Unity classes/structs
         public GenericDictionary<Vector3> positions, scales, directions;
-        public Dictionary<int, Quaternion> rotations;
+        public GenericDictionary<Quaternion> rotations;
         //User made component lists
-        public Dictionary<int, Components.Controllable> controllables;
+        public GenericDictionary<Components.Controllable> controllables;
         public GenericDictionary<Components.Movement> movementComponents, previousFrameMovementComponents;
 
         public override void Init() {
-            entityGameObjects = new Dictionary<int, GameObject>();
-            entityTransforms = new Dictionary<int, Transform>();
-            rigidbodies = new Dictionary<int, Rigidbody>();
-            controllables = new Dictionary<int, Components.Controllable>();
+            entityGameObjects = new GenericDictionary<GameObject>();
+            entityTransforms = new GenericDictionary<Transform>();
+            rigidbodies = new GenericDictionary<Rigidbody>();
+            controllables = new GenericDictionary<Components.Controllable>();
             positions = new GenericDictionary<Vector3>();
             scales = new GenericDictionary<Vector3>();
             directions = new GenericDictionary<Vector3>();
-            rotations = new Dictionary<int, Quaternion>();
-            maxSpeeds = new Dictionary<int, float>();
+            rotations = new GenericDictionary<Quaternion>();
+            maxSpeeds = new GenericDictionary<float>();
             movementComponents = new GenericDictionary<Components.Movement>();
             previousFrameMovementComponents = new GenericDictionary<Components.Movement>();
         }
 
         public override void ReferenceManager() {
-            entityManager = EntityManager.Instance;
-
-            entityManager.vectorDictionaries.Add(positions);
-            entityManager.vectorDictionaries.Add(scales);
-            entityManager.vectorDictionaries.Add(directions);
-            entityManager.quaternionDictionaries.Add(rotations);
-            entityManager.floatDictionaries.Add(maxSpeeds);
-            entityManager.movementDictionaries.Add(movementComponents);
-            entityManager.movementDictionaries.Add(previousFrameMovementComponents);
         }
+        #region Search component functions
+        public int ReturnIntComponent(Enums.ComponentType componentType, int entityId) {
+            int integer;
+            if (false) {
 
-        public object ReturnComponent(Enums.ComponentType componentType, int entityId) {
-            switch (componentType) {
-                case Enums.ComponentType.Position:
-                case Enums.ComponentType.Direction:
-                case Enums.ComponentType.Scale:
-                    {
-                        Vector3 vc;
-                        if (componentType == Enums.ComponentType.Position) {
-                            if (positions.TryGetValue(entityId, out vc)) {
-                                return vc;
-                            }
-                        } else if (componentType == Enums.ComponentType.Direction) {
-                            if (directions.TryGetValue(entityId, out vc)) {
-                                return vc;
-                            }
-                        } else if (componentType == Enums.ComponentType.Scale) {
-                            if (scales.TryGetValue(entityId, out vc)) {
-                                return vc;
-                            }
-                        }
-                    }
-                    break;
-                case Enums.ComponentType.Rotation:
-                    {
-                        Quaternion qt;
-                        if (rotations.TryGetValue(entityId, out qt)) {
-                            return qt;
-                        }
-                    }
-                    break;
-                case Enums.ComponentType.MaxSpeed:
-                    {
-                        float fl;
-                        if (maxSpeeds.TryGetValue(entityId, out fl)) {
-                            return fl;
-                        }
-                    }
-                    break;
-                case Enums.ComponentType.Movement:
-                case Enums.ComponentType.PreviousFrameMovement:
-                    {
-                        Components.Movement mv;
-                        if (componentType == Enums.ComponentType.Movement) {
-                            if (movementComponents.TryGetValue(entityId, out mv)) {
-                                return mv;
-                            }
-                        } else if(componentType == Enums.ComponentType.PreviousFrameMovement) {
-                            if (previousFrameMovementComponents.TryGetValue(entityId, out mv)) {
-                                return mv;
-                            }
-                        }
-                    }
-                    break;
-                case Enums.ComponentType.Controllable:
-                    {
-                        Components.Controllable cr;
-                        if (controllables.TryGetValue(entityId, out cr)) {
-                            return cr;
-                        }
-                    }
-                    break;
-
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
             }
+            Debug.LogWarning(string.Format("Entity doesn't have component in the wanted component list, entity id : {0} component type: {1}", entityId, componentType));
+            return 0;
+        }
+        public float ReturnFloatComponent(Enums.ComponentType componentType, int entityId) {
+            float fl;
+            if (componentType == Enums.ComponentType.MaxSpeed) {
+                if (maxSpeeds.TryGetValue(entityId, out fl)) {
+                    return fl;
+                }
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            Debug.LogWarning(string.Format("Entity doesn't have component in the wanted component list, entity id : {0} component type: {1}", entityId, componentType));
+            return 0;
+        }
+        public bool ReturnBooleanComponent(Enums.ComponentType componentType, int entityId) {
+            bool bl;
+            if (componentType == Enums.ComponentType.IsVisible) {
+                if (isVisibles.TryGetValue(entityId, out bl)) {
+                    return bl;
+                }
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            Debug.LogWarning(string.Format("Entity doesn't have component in the wanted component list, entity id : {0} component type: {1}", entityId, componentType));
+            return false;
+        }
+        public Vector3 ReturnVector3Component(Enums.ComponentType componentType, int entityId) {
+            Vector3 vc;
+            if (componentType == Enums.ComponentType.Position) {
+                if (positions.TryGetValue(entityId, out vc)) {
+                    return vc;
+                }
+            } else if (componentType == Enums.ComponentType.Scale) {
+                if (scales.TryGetValue(entityId, out vc)) {
+                    return vc;
+                }
+            } else if (componentType == Enums.ComponentType.Direction) {
+                if (directions.TryGetValue(entityId, out vc)) {
+                    return vc;
+                }
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            Debug.LogWarning(string.Format("Entity doesn't have component in the wanted component list, entity id : {0} component type: {1}", entityId, componentType));
+            return Vector3.zero;
+        }
+        public Quaternion ReturnQuaternionComponent(Enums.ComponentType componentType, int entityId) {
+            Quaternion qt;
+            if (componentType == Enums.ComponentType.Rotation) {
+                if (rotations.TryGetValue(entityId, out qt)) {
+                    return qt;
+                }
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            Debug.LogWarning(string.Format("Entity doesn't have component in the wanted component list, entity id : {0} component type: {1}", entityId, componentType));
+            return Quaternion.identity;
+        }
+        public Components.Movement ReturnMovementComponent(Enums.ComponentType componentType, int entityId) {
+            Components.Movement mc;
+            if (componentType == Enums.ComponentType.Movement) {
+                if (movementComponents.TryGetValue(entityId, out mc)) {
+                    return mc;
+                }
+            } else if (componentType == Enums.ComponentType.PreviousFrameMovement) {
+                if (previousFrameMovementComponents.TryGetValue(entityId, out mc)) {
+                    return mc;
+                }
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            Debug.LogWarning(string.Format("Entity doesn't have component in the wanted component list, entity id : {0} component type: {1}", entityId, componentType));
             return null;
         }
-        //Replace this with correct type functions, it's slow to unbox and box values with this function
-        public void SetComponent(Enums.ComponentType componentType, object component, int entityId) {
-            switch (componentType) {
-                case Enums.ComponentType.Position:
-                case Enums.ComponentType.Direction:
-                case Enums.ComponentType.Scale:
-                    {
-                        if (componentType == Enums.ComponentType.Position) {
-                            positions[entityId] = (Vector3)component;
-                        } else if (componentType == Enums.ComponentType.Direction) {
-                            directions[entityId] = (Vector3)component;
-                        } else if (componentType == Enums.ComponentType.Scale) {
-                            scales[entityId] = (Vector3)component;
-                        }
-                    }
-                    break;
-                case Enums.ComponentType.Rotation:
-                    {
-                        rotations[entityId] = (Quaternion)component;
-                    }
-                    break;
-                case Enums.ComponentType.MaxSpeed:
-                    {
-                        maxSpeeds[entityId] = (float)component;
-                    }
-                    break;
+        #endregion
+
+        #region Set component functions
+
+        public void SetComponent(Enums.ComponentType componentType, float component, int entityId) {
+            if(componentType == Enums.ComponentType.MaxSpeed) {
+                maxSpeeds[entityId] = component;
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
             }
         }
+        public void SetComponent(Enums.ComponentType componentType, bool component, int entityId) {
+            if (componentType == Enums.ComponentType.IsVisible) {
+                isVisibles[entityId] = component;
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+        }
+        public void SetComponent(Enums.ComponentType componentType, Vector3 component, int entityId) {
+            if(componentType == Enums.ComponentType.Position) {
+                positions[entityId] = component;
+            } else if (componentType == Enums.ComponentType.Direction) { 
+                directions[entityId] = component;
+            } else if (componentType == Enums.ComponentType.Scale){
+                scales[entityId] = component;
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+        }
+        public void SetComponent(Enums.ComponentType componentType, Quaternion component, int entityId) {
+            if(componentType == Enums.ComponentType.Rotation) {
+                rotations[entityId] = component;
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+        }
+        #endregion
     }
 }
 
