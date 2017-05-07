@@ -19,15 +19,19 @@ namespace Fudo {
             entityManager = EntityManager.Instance;
         }
 
-        public void CreateEntityWithoutGameObject() {
-            Entity entity = new Entity();
-            entity.id = entityManager.GenerateEntityID();
+        float createSavePointTimer = 0;
+        float createSavePointInterval = 20;
+        Entity player;
 
-            componentManager.AddComponent(Enums.ComponentType.Position, Vector3.zero, entity.id);
-            componentManager.AddComponent(Enums.ComponentType.Rotation, Quaternion.identity, entity.id);
-            componentManager.AddComponent(Enums.ComponentType.Direction, Vector3.zero, entity.id);
-            componentManager.AddComponent(Enums.ComponentType.MaxSpeed, 0, entity.id);
-            componentManager.AddComponent(Enums.ComponentType.Movement, new Components.Movement(), entity.id);
+        public void Update() {
+            if (createSavePointTimer >= createSavePointInterval) {
+                Entity entity = new Entity();
+                entity.id = entityManager.GenerateEntityID();
+                entityManager.entities.Add(entity.id, entity);
+
+                componentManager.AddComponent(Enums.ComponentType.Position, componentManager.positions[player.id], entity.id);
+                componentManager.AddComponent(Enums.ComponentType.Rotation, componentManager.rotations[player.id], entity.id);
+            }
         }
 
         public void CreatePlayer() {

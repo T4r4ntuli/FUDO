@@ -9,6 +9,7 @@ namespace Fudo {
 
         public Dictionary<int, Entity> entities;
         int nextEntityID = 1;
+        int maxEntites = 1000000;
 
         public override void Init() {
             entities = new Dictionary<int, Entity>();
@@ -23,7 +24,8 @@ namespace Fudo {
                     return nextEntityID;
                 }
                 nextEntityID++;
-            } while (true);
+            } while (nextEntityID < maxEntites);
+            throw new System.Exception("Entity capacity reached");
         }
 
         public void DeleteEntity(int id) {
@@ -64,8 +66,8 @@ namespace Fudo {
                     }
                 }
                 //Remove all references of Unity components and objects
-                componentManager.rigidbodies.Remove(id);
                 componentManager.entityTransforms.Remove(id);
+                componentManager.rigidbodies.Remove(id);
                 GameObject go;
                 if (componentManager.entityGameObjects.TryGetValue(id, out go)) {
                     Destroy(go);

@@ -4,8 +4,7 @@ using UnityEditor;
 namespace Fudo.Drawer {
     [CustomEditor(typeof(Entity))]
     public class EntityEditor : Editor {
-        //Basicly draws components in it, gives choices to add or delete component from it
-        public override void OnInspectorGUI() { //Replace with property drawer
+        public override void OnInspectorGUI() {
             Entity e = (Entity)target;
             EditorGUILayout.IntField("EntityID", e.id);
 
