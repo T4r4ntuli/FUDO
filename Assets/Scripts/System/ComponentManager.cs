@@ -19,6 +19,8 @@ namespace Fudo {
         //User made component lists
         public GenericDictionary<Components.Controllable> controllableComponents;
         public GenericDictionary<Components.Movement> movementComponents, previousFrameMovementComponents;
+        public GenericDictionary<Components.BufferedInputs> bufferedInputs;
+        public GenericDictionary<Components.MovementInput> inputToMovement;
 
         public override void Init() {
             entityGameObjects = new GenericDictionary<GameObject>();
@@ -32,6 +34,8 @@ namespace Fudo {
             maxSpeeds = new GenericDictionary<float>();
             movementComponents = new GenericDictionary<Components.Movement>();
             previousFrameMovementComponents = new GenericDictionary<Components.Movement>();
+            bufferedInputs = new GenericDictionary<Components.BufferedInputs>();
+            inputToMovement = new GenericDictionary<Components.MovementInput>();
         }
 
         public override void ReferenceManager() {
@@ -87,6 +91,22 @@ namespace Fudo {
         public void AddComponent(Enums.ComponentType componentType, Components.Controllable component, int entityId) {
             if (componentType == Enums.ComponentType.Controllable) {
                 controllableComponents.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, Components.BufferedInputs component, int entityId) {
+            if (componentType == Enums.ComponentType.BufferedInputs) {
+                bufferedInputs.Add(entityId, component);
+            } else {
+                throw new ArgumentException("No component lists were found with the given type", "componentType");
+            }
+            entityManager.entities[entityId].components.Add(componentType);
+        }
+        public void AddComponent(Enums.ComponentType componentType, Components.MovementInput component, int entityId) {
+            if (componentType == Enums.ComponentType.MovementToInput) {
+                inputToMovement.Add(entityId, component);
             } else {
                 throw new ArgumentException("No component lists were found with the given type", "componentType");
             }
