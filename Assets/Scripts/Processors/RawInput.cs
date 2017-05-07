@@ -10,24 +10,24 @@ namespace Fudo.Processor
                 Components.BufferedInputs bufferedInputs;
 
                 if (inputs.TryGetValue(input.Key, out bufferedInputs)) {
-                    if (UnityEngine.Input.GetKeyDown(KeyCode.W)) {
+                    if (UnityEngine.Input.GetButtonDown("Forward")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Up, Enums.KeyState.Down));
-                    } else if (UnityEngine.Input.GetKeyUp(KeyCode.W)) {
+                    } else if (UnityEngine.Input.GetButtonUp("Forward")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Up, Enums.KeyState.Up));
                     }
-                    if (UnityEngine.Input.GetKeyDown(KeyCode.S)) {
+                    if (UnityEngine.Input.GetButtonDown("Backward")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Down, Enums.KeyState.Down));
-                    } else if (UnityEngine.Input.GetKeyUp(KeyCode.S)) {
+                    } else if (UnityEngine.Input.GetButtonUp("Backward")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Down, Enums.KeyState.Up));
                     }
-                    if (UnityEngine.Input.GetKeyDown(KeyCode.A)) {
+                    if (UnityEngine.Input.GetButtonDown("Left")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Left, Enums.KeyState.Down));
-                    } else if (UnityEngine.Input.GetKeyUp(KeyCode.A)) {
+                    } else if (UnityEngine.Input.GetButtonUp("Left")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Left, Enums.KeyState.Up));
                     }
-                    if (UnityEngine.Input.GetKeyDown(KeyCode.D)) {
+                    if (UnityEngine.Input.GetButtonDown("Right")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Right, Enums.KeyState.Down));
-                    } else if (UnityEngine.Input.GetKeyUp(KeyCode.D)) {
+                    } else if (UnityEngine.Input.GetButtonUp("Right")) {
                         bufferedInputs.inputs.Add(new BufferedInput(Enums.Key.Right, Enums.KeyState.Up));
                     }
                 }
