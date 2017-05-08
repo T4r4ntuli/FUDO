@@ -15,9 +15,9 @@
         private void Update() {
             Processor.RawInput.Update(componentManager.bufferedInputs);
             Processor.InputToMovement.Update(componentManager.bufferedInputs, componentManager.inputToMovement);
-
             Processor.Input.Update();
             Processor.Movement.Update(componentManager.positions, componentManager.movementComponents);
+            Processor.CharacterMovement.Update(componentManager.positions, componentManager.movementComponents, componentManager.inputToMovement);
             Processor.UnityMovement.Update(componentManager.entityTransforms, componentManager.positions, componentManager.rigidbodies);
         }
         private void FixedUpdate() {
