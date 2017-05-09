@@ -4,8 +4,8 @@ namespace Fudo.Components {
     [System.Serializable]
     public class BufferedInputs {
         public BufferedInputs() {
-            inputs = new List<BufferedInput>();
+            buffered = new List<BufferedInput>();
         }
-        public List<BufferedInput> inputs;
+        public List<BufferedInput> buffered;
     }
 }

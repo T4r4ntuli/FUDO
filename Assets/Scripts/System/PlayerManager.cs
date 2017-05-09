@@ -52,7 +52,6 @@ namespace Fudo {
             componentManager.AddComponent(Enums.ComponentType.Direction, new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2)), entity.id);
             componentManager.AddComponent(Enums.ComponentType.MaxSpeed, Random.Range(1, 3), entity.id);
             componentManager.AddComponent(Enums.ComponentType.Movement, new Components.Movement(), entity.id);
-            componentManager.AddComponent(Enums.ComponentType.BufferedInputs, new Components.BufferedInputs(), entity.id);
             componentManager.AddComponent(Enums.ComponentType.MovementToInput, new Components.MovementInput(), entity.id);
 
             int random = Random.Range(0, 4);
