@@ -8,6 +8,7 @@ namespace Fudo {
         EntityManager entityManager;
         public GameObject playerPrefab;
         public GameObject monoPlayerPrefab;
+        public GameObject logicPlayerPrefab;
         Transform root;
 
         public override void Init() {
@@ -66,6 +67,9 @@ namespace Fudo {
 
         public void CreateMonoPlayer() {
             GameObject.Instantiate(monoPlayerPrefab);
+        }
+        public void CreateLogicPlayer() {
+            GameObject.Instantiate(logicPlayerPrefab);
         }
     }
 }

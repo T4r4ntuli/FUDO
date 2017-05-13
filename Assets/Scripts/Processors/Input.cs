@@ -22,6 +22,13 @@
                 }
             }
 
+            if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha5)) {
+                PlayerManager playerManager = PlayerManager.Instance;
+                for (int i = 0; i < 10; i++) {
+                    playerManager.CreateLogicPlayer();
+                }
+            }
+
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.W)) {
                 if (true) { //if entity is controllable do something
 
