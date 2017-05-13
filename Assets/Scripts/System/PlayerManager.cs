@@ -7,7 +7,7 @@ namespace Fudo {
         ComponentManager componentManager;
         EntityManager entityManager;
         public GameObject playerPrefab;
-
+        public GameObject monoPlayerPrefab;
         Transform root;
 
         public override void Init() {
@@ -62,6 +62,10 @@ namespace Fudo {
             //move to acceleration logic
             componentManager.movementComponents[entity.id].velocity = componentManager.rotations[entity.id] *
                 componentManager.directions[entity.id].normalized * componentManager.maxSpeeds[entity.id];
+        }
+
+        public void CreateMonoPlayer() {
+            GameObject.Instantiate(monoPlayerPrefab);
         }
     }
 }

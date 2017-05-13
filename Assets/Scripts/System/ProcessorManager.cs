@@ -21,9 +21,6 @@
 
                 HOW TO SEND EVENT TO ONE PARTICULAR OBJECT
                 HOT TO SEND EVENT TO A GROUP OF OBJECTS
-            
-
-             
              */
 
 
