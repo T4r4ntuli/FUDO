@@ -17,7 +17,7 @@
 
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha4)) {
                 PlayerManager playerManager = PlayerManager.Instance;
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 1000; i++) {
                 playerManager.CreateMonoPlayer();
                 }
             }

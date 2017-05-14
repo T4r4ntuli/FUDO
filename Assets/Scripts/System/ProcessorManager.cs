@@ -27,10 +27,10 @@
         }
 
         private void Update() {
-            Processor.RawInput.Update(componentManager.playerInput);
-            Processor.RawInputToAxis.Update(componentManager.controllableComponents, componentManager.playerInput);
+            //Processor.RawInput.Update(componentManager.playerInput);
+            //Processor.RawInputToAxis.Update(componentManager.controllableComponents, componentManager.playerInput);
             Processor.Input.Update();
-            Processor.AxisToDirection.Update(componentManager.controllableComponents, componentManager.directions);
+            //Processor.AxisToDirection.Update(componentManager.controllableComponents, componentManager.directions);
             Processor.Velocity.Update(componentManager.movementComponents, componentManager.directions, componentManager.rotations, componentManager.maxSpeeds);
             Processor.Movement.Update(componentManager.positions, componentManager.movementComponents);
             Processor.UnityMovement.Update(componentManager.entityTransforms, componentManager.positions, componentManager.rigidbodies);
