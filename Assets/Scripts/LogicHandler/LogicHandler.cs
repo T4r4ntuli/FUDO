@@ -24,5 +24,9 @@ namespace Profiler
         public void AddToLogicHandler(Logic logic) {
             logics.Add(logic);
         }
+
+        public void RemoveFromLogicHandler(Logic logic) {
+            logics.Remove(logic);
+        }
     }
 }

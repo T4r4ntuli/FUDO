@@ -4,6 +4,7 @@ namespace Profiler
 {
     public abstract class Logic : MonoBehaviour
     {
+       protected LogicHandler logicHandler;
 
         // Use this for initialization
         public virtual void LogicStart() { }

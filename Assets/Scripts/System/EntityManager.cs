@@ -31,11 +31,11 @@ namespace Fudo {
         public void DeleteEntity(int id) {
             Entity entity;
             if(entities.TryGetValue(id, out entity)) {
-                entities.Remove(id);
+                //entities.Remove(id);
                 foreach (Enums.ComponentType componentType in entity.components) {
                     switch (componentType) {
-                        default:
-                            throw new System.Exception("Component deletion not implemented");
+                        //default:
+                        //    throw new System.Exception("Component deletion not implemented: " + componentType);
                         case Enums.ComponentType.Controllable:
                             componentManager.controllableComponents.Remove(id);
                             break;
@@ -72,11 +72,11 @@ namespace Fudo {
                 if (componentManager.entityGameObjects.TryGetValue(id, out go)) {
                     Destroy(go);
                     componentManager.entityGameObjects.Remove(id);
-                    Debug.Log("Deleted gameObject succesfully");
+                    //Debug.Log("Deleted gameObject succesfully");
                 }
-                Debug.Log("Deleted entity succesfully");
+                //Debug.Log("Deleted entity succesfully");
             } else {
-                Debug.Log("Did not found entity with this id");
+                //Debug.Log("Did not found entity with this id");
             }
         }
     }

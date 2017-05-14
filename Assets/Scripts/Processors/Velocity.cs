@@ -10,8 +10,19 @@ namespace Fudo.Processor
                 float maxSpeed;
                 Quaternion rotation;
                 Vector3 direction;
-                if (maxSpeeds.TryGetValue(movement.Key, out maxSpeed) && rotations.TryGetValue(movement.Key, out rotation) && directions.TryGetValue(movement.Key, out direction)) {
-                    movement.Value.velocity = rotation * direction * maxSpeed;
+
+                if (directions.TryGetValue(movement.Key, out direction)) {
+                    if (maxSpeeds.TryGetValue(movement.Key, out maxSpeed)) {
+                        if (rotations.TryGetValue(movement.Key, out rotation)) {
+                            movement.Value.velocity = rotation * direction * maxSpeed;
+                        } else {
+                            movement.Value.velocity = direction * maxSpeed;
+                        }
+                    } else {
+                        movement.Value.velocity = direction;
+                    }
+                } else {
+                    movement.Value.velocity = Vector3.zero;
                 }
             }
         }

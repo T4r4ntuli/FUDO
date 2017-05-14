@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Profiler
 {
@@ -11,7 +9,7 @@ namespace Profiler
 
         // Use this for initialization
         public void Start() {
-            LogicHandler logicHandler = GameObject.Find("Root").GetComponent<LogicHandler>();
+            logicHandler = GameObject.Find("Root").GetComponent<LogicHandler>();
             rigidbody = GetComponent<Rigidbody>();
             player = GetComponent<PlayerObject>();
             logicHandler.AddToLogicHandler(this);
@@ -24,6 +22,9 @@ namespace Profiler
             } else {
                 transform.position = player.position;
             }
+        }
+        private void OnDestroy() {
+            logicHandler.RemoveFromLogicHandler(this);
         }
     }
 }
