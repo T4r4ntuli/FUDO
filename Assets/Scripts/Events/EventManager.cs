@@ -4,17 +4,16 @@ using System.Collections.Generic;
 
 namespace Fudo
 {
-    public class SingleDataEvent : UnityEvent<int> { }
-    public class DoubleDataEvent : UnityEvent<int, int> { }
+    using System;
 
-    //public class EventCall : UnityEvent<byte[]> { }
-    public class EventManager : Singleton<EventManager>
+    // http://geekswithblogs.net/BlackRabbitCoder/archive/2011/11/03/c.net-little-wonders-the-generic-action-delegates.aspx
+    // https://www.dotnetperls.com/action
+    // http://stackoverflow.com/questions/42034245/unity-eventmanager-with-delegate-instead-of-unityevent
+
+    public class EventManager : MonoBehaviour
     {
-        protected EventManager() { }
 
-        private Dictionary<Fudo.Enums.Event, UnityEvent> eventDictionary;
-        private Dictionary<Fudo.Enums.Event, SingleDataEvent> singleEventDataDictionary;
-        private Dictionary<Fudo.Enums.Event, DoubleDataEvent> doubleEventDataDictionary;
+        private Dictionary<Enums.Event, Action> eventDictionary;
 
         private static EventManager eventManager;
 
@@ -36,84 +35,33 @@ namespace Fudo
 
         void Init() {
             if (eventDictionary == null) {
-                eventDictionary = new Dictionary<Fudo.Enums.Event, UnityEvent>();
-                singleEventDataDictionary = new Dictionary<Fudo.Enums.Event, SingleDataEvent>();
-                doubleEventDataDictionary = new Dictionary<Fudo.Enums.Event, DoubleDataEvent>();
+                eventDictionary = new Dictionary<Enums.Event, Action>();
             }
         }
 
-        public static void StartListening(Fudo.Enums.Event eventType, UnityAction listener) {
-            UnityEvent thisEvent = null;
+        public static void StartListening(Enums.Event eventType, Action listener) {
+
+            Action thisEvent;
             if (instance.eventDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.AddListener(listener);
+                thisEvent += listener;
             } else {
-                thisEvent = new UnityEvent();
-                thisEvent.AddListener(listener);
+                thisEvent += listener;
                 instance.eventDictionary.Add(eventType, thisEvent);
             }
         }
 
-        public static void StartListening(Fudo.Enums.Event eventType, UnityAction<int> listener) {
-            SingleDataEvent thisEvent = null;
-            if (instance.singleEventDataDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.AddListener(listener);
-            } else {
-                thisEvent = new SingleDataEvent();
-                thisEvent.AddListener(listener);
-                instance.singleEventDataDictionary.Add(eventType, thisEvent);
-            }
-        }
-
-        public static void StartListening(Fudo.Enums.Event eventType, UnityAction<int, int> listener) {
-            DoubleDataEvent thisEvent = null;
-            if (instance.doubleEventDataDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.AddListener(listener);
-            } else {
-                thisEvent = new DoubleDataEvent();
-                thisEvent.AddListener(listener);
-                instance.doubleEventDataDictionary.Add(eventType, thisEvent);
-            }
-        }
-
-        public static void StopListening(Fudo.Enums.Event eventType, UnityAction listener) {
+        public static void StopListening(Enums.Event eventType, Action listener) {
             if (eventManager == null) return;
-            UnityEvent thisEvent = null;
+            Action thisEvent;
             if (instance.eventDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.RemoveListener(listener);
-            }
-        }
-        public static void StopListening(Fudo.Enums.Event eventType, UnityAction<int> listener) {
-            if (eventManager == null) return;
-            SingleDataEvent thisEvent = null;
-            if (instance.singleEventDataDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.RemoveListener(listener);
+                thisEvent -= listener;
             }
         }
 
-        public static void StopListening(Fudo.Enums.Event eventType, UnityAction<int, int> listener) {
-            if (eventManager == null) return;
-            DoubleDataEvent thisEvent = null;
-            if (instance.doubleEventDataDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.RemoveListener(listener);
-            }
-        }
-
-        public static void TriggerEvent(Fudo.Enums.Event eventType) {
-            UnityEvent thisEvent = null;
+        public static void TriggerEvent(Enums.Event eventType) {
+            Action thisEvent = null;
             if (instance.eventDictionary.TryGetValue(eventType, out thisEvent)) {
                 thisEvent.Invoke();
-            }
-        }
-        public static void TriggerEvent(Fudo.Enums.Event eventType, int a) {
-            SingleDataEvent thisEvent = null;
-            if (instance.singleEventDataDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.Invoke(a);
-            }
-        }
-        public static void TriggerEvent(Fudo.Enums.Event eventType, int a, int b) {
-            DoubleDataEvent thisEvent = null;
-            if (instance.doubleEventDataDictionary.TryGetValue(eventType, out thisEvent)) {
-                thisEvent.Invoke(a, b);
             }
         }
     }
