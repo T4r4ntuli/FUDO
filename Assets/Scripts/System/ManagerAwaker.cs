@@ -10,6 +10,7 @@
             //Awake all managers
 
             EntityManager.Instance.Init();
+            EventManager.Instance.Init();
             ComponentManager.Instance.Init();
             ProcessorManager.Instance.Init();
             PlayerManager.Instance.Init();

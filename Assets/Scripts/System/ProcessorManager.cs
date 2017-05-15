@@ -10,6 +10,7 @@
 
         private void Start() {
 
+            Processor.UnityMovement.Start();
 
             /*
                 EVENT MANAGER

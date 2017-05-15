@@ -14,7 +14,7 @@ namespace Fudo.Processor {
             }
             
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha3)) {
-                EventManager.TriggerEvent(Enums.Event.Test);
+                EventManager.Instance.TriggerEvent(Enums.Event.Test);
             }
 
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha4)) {
@@ -45,6 +45,7 @@ namespace Fudo.Processor {
             }
 
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.W)) {
+                EventManager.Instance.TriggerEvent(Enums.Event.Test, new int[] { 1, 0, 1 });
                 if (true) { //if entity is controllable do something
 
                 }
