@@ -33,12 +33,12 @@ namespace Fudo.Processor {
 
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha0)) {
                 //GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
-                //foreach(GameObject go in gos) {
+                //foreach (GameObject go in gos) {
                 //    GameObject.Destroy(go);
                 //}
 
                 EntityManager entityManager = EntityManager.Instance;
-                foreach(Entity entity in entityManager.entities.Values) {
+                foreach (Entity entity in entityManager.entities.Values) {
                     entityManager.DeleteEntity(entity.id);
                 }
                 entityManager.entities.Clear();

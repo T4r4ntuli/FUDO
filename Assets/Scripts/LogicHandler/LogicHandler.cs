@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Profiler
 {
-    public class LogicHandler : MonoBehaviour
+    public class LogicHandler : Fudo.Singleton<LogicHandler>
     {
+        protected LogicHandler() { }
 
         public List<Logic> logics;
 

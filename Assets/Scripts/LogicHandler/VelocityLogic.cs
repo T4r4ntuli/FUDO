@@ -7,9 +7,12 @@ namespace Profiler
         private PlayerObject player;
 
         public void Start() {
-            logicHandler = GameObject.Find("Root").GetComponent<LogicHandler>();
+            logicHandler = LogicHandler.Instance;
             player = GetComponent<PlayerObject>();
             player.direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
+            //while (player.direction.magnitude == 0) {
+            //    player.direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
+            //}
             logicHandler.AddToLogicHandler(this);
         }
 

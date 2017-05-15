@@ -7,7 +7,7 @@ namespace Profiler
         private PlayerObject player;
 
         public void Start() {
-            logicHandler = GameObject.Find("Root").GetComponent<LogicHandler>();
+            logicHandler = LogicHandler.Instance;
             player = GetComponent<PlayerObject>();
             logicHandler.AddToLogicHandler(this);
         }

@@ -13,9 +13,9 @@ namespace Profiler
         void Start() {
 
             direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
-            while (direction.magnitude == 0) {
-                direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
-            }
+            //while (direction.magnitude == 0) {
+            //    direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
+            //}
         }
 
         void Update() {

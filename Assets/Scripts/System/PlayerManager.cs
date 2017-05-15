@@ -51,10 +51,11 @@ namespace Fudo {
             componentManager.AddComponent(Enums.ComponentType.Position, Vector3.zero, entity.id);
             componentManager.AddComponent(Enums.ComponentType.Rotation, Quaternion.identity, entity.id);
 
-            Vector3 direction = Vector3.zero;
-            while (direction.magnitude == 0) {
-                direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
-            }
+            //Vector3 direction = Vector3.zero;
+            //while (direction.magnitude == 0) {
+            //    direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
+            //}
+            Vector3 direction = new Vector3(Random.Range(-1, 2), Random.Range(-1, 2), Random.Range(-1, 2));
 
             componentManager.AddComponent(Enums.ComponentType.Direction, direction, entity.id);
 
