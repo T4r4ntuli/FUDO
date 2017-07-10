@@ -31,7 +31,7 @@ namespace Fudo {
         public void DeleteEntity(int id) {
             Entity entity;
             if(entities.TryGetValue(id, out entity)) {
-                //entities.Remove(id);
+                entities.Remove(id);
                 foreach (Enums.ComponentType componentType in entity.components) {
                     switch (componentType) {
                         //default:
@@ -63,6 +63,9 @@ namespace Fudo {
                         case Enums.ComponentType.Scale:
                             componentManager.scales.Remove(id);
                             break;
+                        case Enums.ComponentType.InputToMovement:
+                            componentManager.inputToMovement.Remove(id);
+                        break;
                     }
                 }
                 //Remove all references of Unity components and objects

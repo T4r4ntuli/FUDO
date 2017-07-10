@@ -61,7 +61,7 @@ namespace Fudo {
 
             componentManager.AddComponent(Enums.ComponentType.MaxSpeed, /*Random.Range(1, 3)*/5.0f, entity.id);
             componentManager.AddComponent(Enums.ComponentType.Movement, new Components.Movement(), entity.id);
-            componentManager.AddComponent(Enums.ComponentType.MovementToInput, new Components.MovementInput(), entity.id);
+            componentManager.AddComponent(Enums.ComponentType.InputToMovement, new Components.MovementInput(), entity.id);
 
             //int random = Random.Range(0, 4);
             //if(random > 1) {

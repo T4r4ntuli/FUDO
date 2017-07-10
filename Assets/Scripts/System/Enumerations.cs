@@ -14,7 +14,7 @@
         Movement,
         PreviousFrameMovement,
         BufferedInputs,
-        MovementToInput,
+        InputToMovement,
         Count
     }
 

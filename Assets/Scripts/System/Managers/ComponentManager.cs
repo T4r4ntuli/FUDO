@@ -99,7 +99,7 @@ namespace Fudo {
             entityManager.entities[entityId].components.Add(componentType);
         }
         public void AddComponent(Enums.ComponentType componentType, Components.MovementInput component, int entityId) {
-            if (componentType == Enums.ComponentType.MovementToInput) {
+            if (componentType == Enums.ComponentType.InputToMovement) {
                 inputToMovement.Add(entityId, component);
             } else {
                 throw new ArgumentException("No component lists were found with the given type", "componentType");

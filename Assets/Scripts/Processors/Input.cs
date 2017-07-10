@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fudo.Processor {
     public static class Input {
@@ -8,7 +9,7 @@ namespace Fudo.Processor {
                 //for (int i = 0; i < 500; i++) {
                  //   playerManager.CreatePlayer();
                 //}
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 10000; i++) {
                     playerManager.CreatePlayer();
                 }
             }
@@ -32,16 +33,22 @@ namespace Fudo.Processor {
             }
 
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Alpha0)) {
-                //GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
-                //foreach (GameObject go in gos) {
-                //    GameObject.Destroy(go);
-                //}
+                GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject go in gos) {
+                    GameObject.Destroy(go);
+                }
 
                 EntityManager entityManager = EntityManager.Instance;
+
+                List<Entity> entities = new List<Entity>();
+
                 foreach (Entity entity in entityManager.entities.Values) {
-                    entityManager.DeleteEntity(entity.id);
+                    entities.Add(entity);
                 }
-                entityManager.entities.Clear();
+
+                for (int i = 0; i < entities.Count; i++) {
+                    entityManager.DeleteEntity(entities[i].id);
+                }
             }
 
             if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.W)) {
