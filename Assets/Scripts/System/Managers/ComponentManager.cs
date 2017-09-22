@@ -72,6 +72,36 @@ namespace Fudo {
             }
             entityManager.entities[entityId].components.Add(componentType);
         }
+        public void  RemoveComponent(Enums.ComponentType componentType, int entityId) {
+
+            switch (componentType)
+            {
+                default:
+                    throw new ArgumentException("No component lists were found with the given type", "componentType");
+                case Enums.ComponentType.Position:
+                    positions.Remove(entityId);
+                    break;
+                case Enums.ComponentType.Scale:
+                    scales.Remove(entityId);
+                    break;
+                case Enums.ComponentType.Rotation:
+                    rotations.Remove(entityId);
+                    break;
+                case Enums.ComponentType.Direction:
+                    directions.Remove(entityId);
+                    break;
+                case Enums.ComponentType.MaxSpeed:
+                    maxSpeeds.Remove(entityId);
+                    break;
+                case Enums.ComponentType.Movement:
+                    movementComponents.Remove(entityId);
+                    break;
+                case Enums.ComponentType.InputToMovement:
+                    inputToMovement.Remove(entityId);
+                    break;
+            }
+            entityManager.entities[entityId].components.Remove(componentType);
+        }
         public void AddComponent(Enums.ComponentType componentType, Quaternion component, int entityId) {
             if (componentType == Enums.ComponentType.Rotation) {
                 rotations.Add(entityId, component);
